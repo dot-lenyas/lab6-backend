@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body>
+  {% if name == "" %}
+    <p>Введите имя пожалуйста!</p>
+  {% else %}
+  <p>
+      {% if gender == 'm' %}
+        Привет студент
+      {% elif gender == 'w' %}
+        Привет студентка
+      {% endif %}
+      {{ name }}!
+  </p>
+  <p>
+      Ваша образовательная программа: {{ program }}
+  </p>
+    <p>
+        {% if subjects_select %}
+         Вы изучаете дисциплины:
+         {% for sub in subjects_select %}
+         {% if sub == subjects_select[-1] %}
+            <a href={{ url_for('subject', sub=sub) }}>{{sub}}</a>.
+         {% else %}
+         <a href={{ url_for('subject', sub=sub) }}>{{sub}},</a>
+         {% endif %}
+         {% endfor %}
+        {% else %}
+            <p>Вы не изучаете никаких дисциплин</p>
+        {% endif %}
+     </p>
+  <p>
+      Вы учавствовали в олимпиадах:
+      {% for olim in olimpiads_select %}
+         {% if olim == olimpiads_select[-1] %}
+            <a href={{ url_for('olimpiads', olim=olim) }}>{{olim}}.</a>
+         {% else %}
+         <a href={{ url_for('olimpiads', olim=olim) }}>{{olim}},</a>
+         {% endif %}
+      {% endfor %}
+  </p>
+  {% endif %}
+</body>
+</html>
