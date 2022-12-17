@@ -5,7 +5,7 @@
     <title> Приветствие </title>
 </head>
 <body>
- <form action="{{ url_for('hello') }}" method="get">
+ <form method="get">
      <p>Имя: <input type = text name=username></p>
      <p>Пол:<br>
          <input type = radio name=gender value=w> Ж <br>
@@ -33,5 +33,52 @@
      </p>
      <p><input type=submit value=Отправить></p>
  </form>
+ <form method="get">
+     <p><input id="cleaner" type=submit onclick="history.clear" value=Очистить></p>
+ </form>
+ {% if name == "" or name == "None" %}
+    <p>Введите имя пожалуйста!</p>
+  {% else %}
+  <p>
+      {% if gender == 'm' %}
+        Привет студент
+      {% elif gender == 'w' %}
+        Привет студентка
+      {% endif %}
+      {{ name }}!
+  </p>
+  <p>
+      Ваша образовательная программа: {{ program }}
+  </p>
+    <p>
+        {% if subjects_select %}
+         Вы изучаете дисциплины:
+         {% for sub in subjects_select %}
+         {% if sub == subjects_select[-1] %}
+            <a href={{ url_for('subject', sub=sub) }}>{{sub}}</a>.
+         {% else %}
+         <a href={{ url_for('subject', sub=sub) }}>{{sub}},</a>
+         {% endif %}
+         {% endfor %}
+        {% else %}
+            <p>Вы не изучаете никаких дисциплин</p>
+        {% endif %}
+     </p>
+  <p>
+      Вы учавствовали в олимпиадах:
+      {% for olim in olimpiads_select %}
+         {% if olim == olimpiads_select[-1] %}
+            <a href={{ url_for('olimpiads', olim=olim) }}>{{olim}}.</a>
+         {% else %}
+         <a href={{ url_for('olimpiads', olim=olim) }}>{{olim}},</a>
+         {% endif %}
+      {% endfor %}
+  </p>
+  {% endif %}
+
+
+<script>
+    let cleaner = document.getElementById('cleaner')
+</script>
 </body>
 </html>
